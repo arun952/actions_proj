@@ -1,0 +1,37 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: DataSREMetricMiner.ci
+
+on:
+  push:
+    paths: src/concepts/csharp/blazor/DataSreMetricMiner/**/*.*        
+  pull_request:
+    branches: [ "main" ]
+    paths: src/concepts/csharp/blazor/DataSreMetricMiner/**/*.* 
+
+jobs:
+  build:
+
+    runs-on: [self-hosted, Linux, X64,sre-dev, sre-dev-us-east-1]
+    
+    steps:
+    - name: Setup .NET 6.x
+      uses: actions/setup-dotnet@v4
+      with:
+      # Semantic version range syntax or exact version of a dotnet version
+        dotnet-version: '6.x'
+    - uses: actions/checkout@v4   
+    - name: Restore dependencies
+      run: dotnet restore src/concepts/csharp/blazor/DataSreMetricMiner/DataSreMetricMiner.sln
+    - name: Build
+      run: dotnet build --no-restore src/concepts/csharp/blazor/DataSreMetricMiner
+    - name: Test
+      run: dotnet test --no-build --verbosity normal src/concepts/csharp/blazor/DataSreMetricMiner
+    - name: Pack NuGet packages
+      run: dotnet pack src/concepts/csharp/blazor/DataSreMetricMiner/DataSreMetricMiner.csproj -p:NuspecFile=./DataSreMetricMiner.nuspec --configuration Release --output ./packages 
+    - name: Upload NuGet Package
+      uses: actions/upload-artifact@v2
+      with:
+        name: nupkg
+        path: /actions-runner/_work/ps-data-sre/ps-data-sre/packages/DataSreMetricMiner.1.0.0.nupkg
