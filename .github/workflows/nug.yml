@@ -1,0 +1,37 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: nug.nuspec
+
+on:
+  push:
+    paths: src/main/nug/*.*        
+  pull_request:
+    branches: [ "main" ]
+    paths: src/main/nug/*.* 
+
+jobs:
+  build:
+
+    runs-on: Linux
+    
+    steps:
+    - name: Setup .NET 6.x
+      uses: actions/setup-dotnet@v4
+      with:
+      # Semantic version range syntax or exact version of a dotnet version
+        dotnet-version: '6.x'
+    - uses: actions/checkout@v4   
+    - name: Restore dependencies
+      run: dotnet restore src/main/nug/nug.nuspec
+    - name: Build
+      run: dotnet build --no-restore  src/main/nug/nug.nuspec
+    - name: Test
+      run: dotnet test --no-build --verbosity normal  src/main/nug/nug.nuspec
+    - name: Pack NuGet packages
+      run: dotnet pack src/main/nug/nug.nuspec -p:NuspecFile=./nug.nuspec --configuration Release --output ./packages 
+    - name: Upload NuGet Package
+      uses: actions/upload-artifact@v2
+      with:
+        name: nupkg
+        path: src/main/nug/Package.1.0.0.nupkg
