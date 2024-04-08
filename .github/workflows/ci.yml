@@ -5,9 +5,9 @@ name: testbranch
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, new-ci-workflow  ]
   pull_request:
-    branches: [ master, new-ci-workflow ]
+    branches: [ master ]
 
 jobs:
   build:
