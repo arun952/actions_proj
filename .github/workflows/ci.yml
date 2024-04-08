@@ -1,11 +1,11 @@
 # This workflow will build a Java project with Gradle
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: testbranch
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, new-ci-workflow ]
   pull_request:
     branches: [ master ]
 
