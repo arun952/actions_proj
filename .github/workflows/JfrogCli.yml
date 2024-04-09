@@ -1,0 +1,74 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: DataMiner_Artifacts
+
+on:
+  push:
+    branches: [ master ]
+    # paths: src/concepts/csharp/blazor/DataSreMetricMiner/**/.*    
+  # pull_request:
+  #   branches: [ AK-PRS-10608 ]
+  #   paths: src/concepts/csharp/blazor/DataSreMetricMiner/**/.
+
+jobs:
+  build:
+
+    runs-on: Linux
+    
+    steps:
+    # - name: Setup .NET 6.x
+    #   uses: actions/setup-dotnet@v4
+    #   with:
+    #   # Semantic version range syntax or exact version of a dotnet version
+    #     dotnet-version: '6.x'
+    # - uses: actions/checkout@v4   
+    # - name: Restore dependencies
+    #   run: dotnet restore src/concepts/csharp/blazor/DataSreMetricMiner/DataSreMetricMiner.sln
+    # - name: Build
+    #   run: dotnet build --no-restore src/concepts/csharp/blazor/DataSreMetricMiner
+    # - name: Test
+    #   run: dotnet test --no-build --verbosity normal src/concepts/csharp/blazor/DataSreMetricMiner
+    # - name: Pack NuGet packages
+    #   run: dotnet pack src/concepts/csharp/blazor/DataSreMetricMiner/DataSreMetricMiner.csproj -p:NuspecFile=./DataSreMetricMiner.nuspec --configuration Release --output ./packages 
+    # - name: Upload NuGet Package
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: nupkg
+    #     path: /actions-runner/_work/ps-data-sre/ps-data-sre/packages/DataSreMetricMiner.1.0.0.nupkg
+
+    - name: Setup JFrog CLI
+      uses: jfrog/setup-jfrog-cli@v3
+      env:
+       JF_URL: https://akdev21.jfrog.io
+       JF_ACCESS_TOKEN: cmVmdGtuOjAxOjE3NDQyMTQwMjc6bkVVOGp3cHM1TDhXd2lRdGg3TFc4YnVMR1Nl
+
+    - run: |
+       export SERVER_ID="test"
+       jf c add $SERVER_ID --url=$JF_URL --access-token=$JF_ACCESS_TOKEN --interactive=false
+       jf config show
+       
+    - name: Push Build to Artifactory
+      run: |
+       echo "test file " > ak_test.txt
+       export BUILD_NAME="ak-build"
+       export BUILD_MODULE="ak-module"
+       export BUILD_NUMBER="1"
+
+       export PATH_TO_DIRECTORY="name/version/dates"
+      
+
+       jf rt upload "ak_test.txt" git-nuget-nuget/
+       # --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
+
+       
+    # - name: upload the artifacts to jfrog
+    #   env:
+    #     art_url: https://usartifactorywexinc.jfrog.io/artifactory
+    #     art_username: w514745
+    #     art_pass: cmVmdGtuOjAxOjE3NDQxODkwNDk6TGF0RFQ1bWlpTHJJNTA0M2xmWVlrSTNia251
+    #     repo: global-nuget
+    #     artifact_path: /actions-runner/_work/ps-data-sre/ps-data-sre/packages/DataSreMetricMiner.1.0.0.nupkg
+    #   run: |
+    #      jfrog rt config --interactive=false --url="${art_url}" --user="${art_username}" --password="${art_pass}" 
+    #      jfrog rt u "${{github.workspace}}/packages/*.nupkg" "${art_url}/${repo}" --build-name="${{ github.run_id }}" --build-number="${{ github.run_number }}"
