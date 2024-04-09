@@ -14,7 +14,7 @@ on:
 jobs:
   build:
 
-    runs-on: [self-hosted, linux]
+    runs-on: [self-hosted, linux, ubuntu-latest]
     
     steps:
     # - name: Setup .NET 6.x
