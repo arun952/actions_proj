@@ -58,8 +58,8 @@ jobs:
        export PATH_TO_DIRECTORY="name/version/dates"
       
 
-       jf rt upload "ak_test3.txt" git-nuget-nuget/$PATH_TO_DIRECTORY --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
-
+       jf rt upload "ak_test3.txt" git-nuget-nuget/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
+       jf rt download "ak_test2.txt" git-nuget-nuget/
        
     # - name: upload the artifacts to jfrog
     #   env:
