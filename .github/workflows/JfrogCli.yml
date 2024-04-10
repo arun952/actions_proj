@@ -1,7 +1,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: DataMiner_Artifacts
+name: JROG_ARTI
 
 on:
   push:
@@ -50,7 +50,7 @@ jobs:
        
     - name: Push Build to Artifactory
       run: |
-       echo "test file from aK_dev " > ak_test2.txt
+       echo "test file from aK_dev" > ak_test2.txt
        export BUILD_NAME="ak-build"
        export BUILD_MODULE="ak-module"
        export BUILD_NUMBER="1"
@@ -58,7 +58,7 @@ jobs:
        export PATH_TO_DIRECTORY="name/version/dates"
       
 
-       jf rt upload "ak_test.txt" git-nuget-nuget/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
+       jf rt upload "ak_test2.txt" git-nuget-nuget/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
 
        
     # - name: upload the artifacts to jfrog
