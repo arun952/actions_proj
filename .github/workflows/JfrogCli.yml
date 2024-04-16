@@ -9,7 +9,7 @@ on:
     # paths: src/concepts/csharp/blazor/DataSreMetricMiner/**/.*    
   # pull_request:
   #   branches: [ AK-PRS-10608 ]
-  #   paths: src/concepts/csharp/blazor/DataSreMetricMiner/*
+  #   paths: src/concepts/csharp/blazor/DataSreMetricMiner/
 
 jobs:
   build:
