@@ -46,7 +46,7 @@ jobs:
 
     - run: |
        export SERVER_ID="test"
-       jf c add $SERVER_ID --url=$JF_URL --username=$JF_USER  --access-token=$JF_ACCESS_TOKEN --interactive=false
+       jf c add $SERVER_ID --url=$JF_URL  --access-token=$JF_ACCESS_TOKEN --interactive=false
        jf config show
        
     - name: Push Build to Artifactory
