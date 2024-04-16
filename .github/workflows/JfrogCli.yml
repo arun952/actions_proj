@@ -41,7 +41,7 @@ jobs:
       uses: jfrog/setup-jfrog-cli@v3
       env:
        JF_URL: https://akdev21.jfrog.io
-       JF_ACCESS_TOKEN: cmVmdGtuOjAxOjE3NDQ4MjQ3NzU6RmVqa0thbGRBckNoVmFSYnRvQzNaVjEwUWwx
+       JF_ACCESS_TOKEN: cmVmdGtuOjAxOjE3NDQ4MjUzODk6NnNsVFY0ZnlTN01vUktZV3RWSGdhMkY3UkJS
        JF_USER: arunkaushik391@gmail.com 
 
     - run: |
@@ -51,7 +51,7 @@ jobs:
        
     - name: Push Build to Artifactory
       run: |
-       echo "test file from aK_dev" > ak_test3.txt
+       echo "test file from aK_dev" > ak_test4.txt
        export BUILD_NAME="ak-build"
        export BUILD_MODULE="ak-module"
        export BUILD_NUMBER="1"
@@ -59,8 +59,8 @@ jobs:
        export PATH_TO_DIRECTORY="name/version/dates"
       
 
-       jf rt upload "ak_test3.txt" nuget-remote-local/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
-       jf rt download git-nuget-nuget/ak_test2.txt
+       jf rt upload "ak_test4.txt" nuget-remote-prod/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
+       #jf rt download git-nuget-nuget/ak_test2.txt
        
     # - name: upload the artifacts to jfrog
     #   env:
