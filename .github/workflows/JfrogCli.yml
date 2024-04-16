@@ -41,7 +41,7 @@ jobs:
       uses: jfrog/setup-jfrog-cli@v3
       env:
        JF_URL: https://akdev21.jfrog.io
-       JF_ACCESS_TOKEN: cmVmdGtuOjAxOjE3NDQ4MjYwNDk6c29CREQ2OGxhOFZRTGl4R1hsaExHc2VScUhG
+       JF_ACCESS_TOKEN: cmVmdGtuOjAxOjE3NDQ4MjY4MjQ6OGpXMGU1T2tDTk81MDc1TDJqNlMxZnY0NHJs
        JF_USER: arunkaushik391@gmail.com 
 
     - run: |
@@ -59,7 +59,7 @@ jobs:
        export PATH_TO_DIRECTORY="name/version/dates"
       
 
-       jf rt upload "ak_test4.txt" data-nuget-remote/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
+       jf rt upload "ak_test4.txt" data-nuget-local/ --build-name $BUILD_NAME --build-number $BUILD_NUMBER --module $BUILD_MODULE
        #jf rt download git-nuget-nuget/ak_test2.txt
        
     # - name: upload the artifacts to jfrog
