@@ -41,7 +41,7 @@ jobs:
       uses: jfrog/setup-jfrog-cli@v3
       env:
        JF_URL: https://akdev21.jfrog.io
-       JF_ACCESS_TOKEN: cmVmdGtuOjAxOjE3NDQyMTQwMjc6bkVVOGp3cHM1TDhXd2lRdGg3TFc4YnVMR1Nl
+       JF_ACCESS_TOKEN: cmVmdGtuOjAxOjE3NDQ4MjQ3NzU6RmVqa0thbGRBckNoVmFSYnRvQzNaVjEwUWwx
        JF_USER: arunkaushik391@gmail.com 
 
     - run: |
